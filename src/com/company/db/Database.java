@@ -57,7 +57,7 @@ public class Database {
     }
 
     public static void updateLoan(Loan loan) throws SQLException {
-        String sqlQuery = "UPDATE LOAN SET LATEDAYS  = '"+loan.lateDays+"', RETURNED = '"+loan.isReturned+"' WHERE ID = "+loan.loanId;
+        String sqlQuery = "UPDATE LOAN SET LATEDAYS  = '"+loan.lateDays+"', ISRETURNED = '"+loan.isReturned+"' WHERE ID = "+loan.loanId;
         statement.execute(sqlQuery);
     }
 
@@ -94,5 +94,66 @@ public class Database {
 
         return publications;
     }
+    public static Loan getLoan(int client_id, int publication_id) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM LOAN WHERE USERID = "+client_id+" AND PUBLICATIONID = "+publication_id);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()){
+            Integer id = resultSet.getInt("ID");
+            Integer userid = resultSet.getInt("USERID");
+            Integer publicationid = resultSet.getInt("PUBLICATIONID");
+            Integer lateDays = resultSet.getInt("LATEDAYS");
+            String isreturned = resultSet.getString("ISRETURNED");
+            return new Loan(id,userid,publicationid,lateDays,isreturned);
+        }
+        return null;
+    }
+
+    public static ArrayList<Publication> getPublicationsFromUserId(int userId) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM LOAN WHERE USERID = "+userId);
+        ResultSet resultSet = statement.executeQuery();
+        ArrayList<Publication> publications = new ArrayList<>();
+
+        while (resultSet.next()){
+            Integer publicationId = resultSet.getInt("PUBLICATIONID");
+            String returned = resultSet.getString("ISRETURNED");
+            if(returned.equals("n")){
+                Publication publication = getPublication(publicationId);
+                publications.add(publication);
+            }
+        }
+        return publications;
+    }
+    public static Publication getPublication(int publicationId) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM PUBLICATION WHERE ID = "+publicationId);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()){
+            Integer id = resultSet.getInt("ID");
+            String title = resultSet.getString("TITLE");
+            String author = resultSet.getString("AUTHOR");
+            Integer quantity = resultSet.getInt("QUANTITY");
+
+            return new Publication(id,title,author,quantity);
+        }
+        return null;
+    }
+
+    public static Loan getActualLoan(int userId, int publicationId) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM LOAN WHERE USERID = '"+userId+"' AND PUBLICATIONID = "+publicationId);
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()){
+            Integer id = resultSet.getInt("ID");
+            Integer userid = resultSet.getInt("USERID");
+            Integer publicationid = resultSet.getInt("PUBLICATIONID");
+            Integer lateDays = resultSet.getInt("LATEDAYS");
+            String isreturned = resultSet.getString("ISRETURNED");
+
+            if(isreturned.equals("n")){
+                return new Loan(id,userid,publicationid,lateDays,isreturned);
+            }
+        }
+        return null;
+    }
+
+
 
 }

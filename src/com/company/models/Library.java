@@ -32,7 +32,8 @@ public class Library {
         return null;
     }
 
-    public Publication getPublicationById(int id){
+    public Publication getPublicationById(int id) throws SQLException {
+        this.publications = Database.getAllPublication();
         for (Publication publication : this.publications) {
             if (publication.id == id) {
                 return publication;
