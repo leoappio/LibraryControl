@@ -21,8 +21,10 @@ public class MainMenu {
                 MenuPublication.menuOptions();
             }else if(choice.equals("3")){
                 Screen.LoanMenu();
+                MenuLoan.menuOptions();
             }else if(choice.equals("4")){
                 Screen.ReportsMenu();
+                MenuReports.menuOptions();
             }else if(choice.equals("0")){
                 System.out.println("Programa finalizado!");
                 break;
