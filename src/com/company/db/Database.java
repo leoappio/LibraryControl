@@ -45,5 +45,19 @@ public class Database {
         String sqlQuery = "DELETE FROM PUBLICATION WHERE ID = "+id;
         statement.execute(sqlQuery);
     }
+    public static void updateUser(User user) throws SQLException {
+        String sqlQuery = "UPDATE USER SET REGISTRATION = '"+user.registration+"', NAME = '"+user.name+"' WHERE ID = "+user.id;
+        statement.execute(sqlQuery);
+    }
+
+    public static void updatePublication(Publication publication) throws SQLException {
+        String sqlQuery = "UPDATE PUBLICATION SET TITLE = '"+publication.title+"', AUTHOR = '"+publication.author+"', QUANTITY = '"+publication.quantity+"' WHERE ID = "+publication.id;
+        statement.execute(sqlQuery);
+    }
+
+    public static void updateLoan(Loan loan) throws SQLException {
+        String sqlQuery = "UPDATE LOAN SET LATEDAYS  = '"+loan.lateDays+"', RETURNED = '"+loan.isReturned+"' WHERE ID = "+loan.loanId;
+        statement.execute(sqlQuery);
+    }
 
 }
