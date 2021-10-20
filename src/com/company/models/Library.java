@@ -18,10 +18,24 @@ public class Library {
         this.users = Database.getAllUsers();
         return users;
     }
+
+    public ArrayList<Publication> getAllPublications() throws SQLException {
+        this.publications = Database.getAllPublication();
+        return publications;
+    }
     public User getUserById(int id){
         for (User user : this.users) {
             if (user.id == id) {
                 return user;
+            }
+        }
+        return null;
+    }
+
+    public Publication getPublicationById(int id){
+        for (Publication publication : this.publications) {
+            if (publication.id == id) {
+                return publication;
             }
         }
         return null;

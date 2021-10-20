@@ -119,7 +119,6 @@ public class MenuUser {
                 System.out.println("Número inválido, escolha outro!");
             }
         }
-
     }
 
     public static void returnToMenu() {
