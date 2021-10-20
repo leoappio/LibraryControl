@@ -13,7 +13,7 @@ public class MenuUser {
     public static Scanner scanner = new Scanner(System.in);
     public static Library library = new Library();
 
-    public static void MenuOptions() throws SQLException {
+    public static void menuOptions() throws SQLException {
         while (true) {
             System.out.print("Digite o número da sua escolha: ");
             String choice = scanner.nextLine();

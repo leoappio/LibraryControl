@@ -15,9 +15,10 @@ public class MainMenu {
             String choice = scanner.nextLine();
             if(choice.equals("1")){
                 Screen.ClientMenu();
-                MenuUser.MenuOptions();
+                MenuUser.menuOptions();
             }else if(choice.equals("2")){
-                Screen.ReportsMenu();
+                Screen.PublicationMenu();
+                MenuPublication.menuOptions();
             }else if(choice.equals("3")){
                 Screen.LoanMenu();
             }else if(choice.equals("4")){
