@@ -94,5 +94,5 @@ public class Database {
 
         return publications;
     }
-    
+
 }
