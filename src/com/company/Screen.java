@@ -1,10 +1,6 @@
 package com.company;
 
 public class Screen {
-    public static void clear(){
-        for (int i = 0; i < 20; ++i)
-            System.out.println();
-    }
 
     private static void Header(){
         System.out.println("XYZ COMERCIO DE PRODUTOS LTDA");
