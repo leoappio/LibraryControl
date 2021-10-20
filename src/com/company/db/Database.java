@@ -36,5 +36,14 @@ public class Database {
         String sqlQuery = "INSERT INTO LOAN(USERID, PUBLICATIONID, LATEDAYS, ISRETURNED) VALUES ('"+loan.userId+"','"+loan.publicationId+"','"+loan.lateDays+"','"+loan.isReturned+"')";
         statement.execute(sqlQuery);
     }
+    public static void deleteUser(int id) throws SQLException {
+        String sqlQuery = "DELETE FROM USER WHERE ID = "+id;
+        statement.execute(sqlQuery);
+    }
+
+    public static void deletePublication(int id) throws SQLException {
+        String sqlQuery = "DELETE FROM PUBLICATION WHERE ID = "+id;
+        statement.execute(sqlQuery);
+    }
 
 }
