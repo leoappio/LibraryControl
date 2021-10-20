@@ -4,6 +4,7 @@ import com.company.models.Publication;
 import com.company.models.User;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Database {
     private static Connection connection;
@@ -60,4 +61,38 @@ public class Database {
         statement.execute(sqlQuery);
     }
 
+    public static ArrayList<User> getAllUsers() throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM USER");
+        ResultSet resultSet = statement.executeQuery();
+        ArrayList<User> users = new ArrayList<>();
+
+        while (resultSet.next()){
+            Integer id = resultSet.getInt("ID");
+            String registration = resultSet.getString("REGISTRATION");
+            String name = resultSet.getString("NAME");
+            User user = new User(id, registration, name);
+            users.add(user);
+        }
+
+        return users;
+    }
+
+    public static ArrayList<Publication> getAllPublication() throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM PUBLICATION");
+        ResultSet resultSet = statement.executeQuery();
+        ArrayList<Publication> publications = new ArrayList<>();
+
+        while (resultSet.next()){
+            Integer id = resultSet.getInt("ID");
+            String title = resultSet.getString("TITLE");
+            String author = resultSet.getString("AUTHOR");
+            Integer quantity = resultSet.getInt("QUANTITY");
+
+            Publication publication = new Publication(id,title,author,quantity);
+            publications.add(publication);
+        }
+
+        return publications;
+    }
+    
 }
