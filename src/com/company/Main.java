@@ -1,8 +1,13 @@
 package com.company;
 
+import com.company.db.Database;
+import com.company.models.User;
+
+import java.sql.SQLException;
+
 public class Main {
 
-    public static void main(String[] args) {
-	// write your code here
+    public static void main(String[] args) throws SQLException {
+        
     }
 }
