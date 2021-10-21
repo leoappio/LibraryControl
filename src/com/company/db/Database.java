@@ -123,6 +123,26 @@ public class Database {
         }
         return publications;
     }
+
+    public static int getTotalLoans() throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT COUNT(*) AS TOTAL FROM LOAN");
+        ResultSet resultSet = statement.executeQuery();
+
+        return resultSet.getInt("TOTAL");
+    }
+    public static ArrayList<Publication> getAllPublicationsFromUserId(int userId) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM LOAN WHERE USERID = "+userId);
+        ResultSet resultSet = statement.executeQuery();
+        ArrayList<Publication> publications = new ArrayList<>();
+
+        while (resultSet.next()){
+            Integer publicationId = resultSet.getInt("PUBLICATIONID");
+            Publication publication = getPublication(publicationId);
+            publications.add(publication);
+
+        }
+        return publications;
+    }
     public static Publication getPublication(int publicationId) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM PUBLICATION WHERE ID = "+publicationId);
         ResultSet resultSet = statement.executeQuery();

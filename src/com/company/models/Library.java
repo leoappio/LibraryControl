@@ -41,4 +41,14 @@ public class Library {
         }
         return null;
     }
+
+    public int getTotalPublications() throws SQLException {
+        this.publications = Database.getAllPublication();
+        return publications.size();
+    }
+
+    public int getTotalUsers() throws SQLException {
+        this.users = Database.getAllUsers();
+        return users.size();
+    }
 }
