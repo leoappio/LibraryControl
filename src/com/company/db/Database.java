@@ -174,6 +174,46 @@ public class Database {
         return null;
     }
 
+    public static float getAverageLateDays() throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT LATEDAYS FROM LOAN");
+        ResultSet resultSet = statement.executeQuery();
+        int LateDays = 0;
+        int Locations = 0;
+        while (resultSet.next()){
+            Integer lateDays = resultSet.getInt("LATEDAYS");
+
+            LateDays += lateDays;
+            Locations += 1;
+        }
+        float average = (float)LateDays / Locations;
+        return average;
+    }
+
+    public static ArrayList<Publication> getTop10Publications() throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT p.ID, p.TITLE, p.AUTHOR, p.QUANTITY, COUNT(l.PUBLICATIONID) AS TOTAL FROM PUBLICATION p INNER JOIN LOAN l ON p.ID = l.PUBLICATIONID GROUP BY l.PUBLICATIONID ORDER BY TOTAL DESC");
+        ResultSet resultSet = statement.executeQuery();
+        ArrayList<Publication> publications = new ArrayList<>();
+
+        while (resultSet.next()){
+            Integer id = resultSet.getInt("ID");
+            String title = resultSet.getString("TITLE");
+            String author = resultSet.getString("AUTHOR");
+            Integer quantity = resultSet.getInt("QUANTITY");
+
+            if(publications.size() <= 10){
+                Publication publication = new Publication(id,title,author,quantity);
+                publications.add(publication);
+            }
+        }
+        return publications;
+    }
+
+    public static int getTotalLoanByPublicationId(int publicationId) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("SELECT COUNT(ID) AS TOTAL FROM LOAN WHERE PUBLICATIONID ="+publicationId);
+        ResultSet resultSet = statement.executeQuery();
+        return resultSet.getInt("TOTAL");
+    }
+
 
 
 }

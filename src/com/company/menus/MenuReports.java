@@ -73,33 +73,21 @@ public class MenuReports {
         int totalPublications = library.getTotalPublications();
         int totalLoans = Database.getTotalLoans();
         float averageLoans = (float)totalLoans / totalUsers;
-        float averageLateDays = shop.getAverageLate();
+        float averageLateDays = Database.getAverageLateDays();
 
-        System.out.println("Total de clientes: "+ totalClients);
-        System.out.println("Total de filmes: "+ totalMovies);
-        System.out.println("Total de locações no mês: "+ totalLocations);
-        System.out.println("Filmes 24 Horas: "+ total24hMovies);
-        System.out.println("Filmes 48 Horas: "+ total48hMovies);
-        System.out.printf("Média de locações por usuário: "+ "%.2f",averageLocations);
+        System.out.println("Total de usuarios: "+ totalUsers);
+        System.out.println("Total de publicações no acervo: "+ totalPublications);
+        System.out.println("Total de empréstimos no mês: "+ totalLoans);
+        System.out.printf("Média de movimentações por usuario: "+ "%.2f",averageLoans);
         System.out.println();
-        System.out.printf("Média de tempo de atraso na devolução dos filmes (em dias): "+ "%.2f", averageLateDays);
+        System.out.printf("Média de tempo de atraso na devolução dos livros: "+ "%.2f", averageLateDays);
         System.out.println();
-        System.out.println();
-        System.out.println("10 FILMES MAIS LOCADOS:");
-        ArrayList<Movie> movies = shop.getTop10Movies();
+        System.out.println("10 LIVROS MAIS EMPRESTADOS:");
+        ArrayList<Publication> top10Publications = Database.getTop10Publications();
 
-        for(int i = 0; i<movies.size();i++){
-            int movieTotalLocations = shop.getTotalLocationsByMovieId(movies.get(i).id);
-            System.out.println((i+1)+" - COD: "+movies.get(i).id+" - "+movies.get(i).title+" - Nº de locações: "+movieTotalLocations);
-        }
-
-        System.out.println();
-        System.out.println("10 MELHORES CLIENTES:");
-        ArrayList<Client> clients = shop.getTop10Clients();
-
-        for(int i = 0; i<clients.size();i++){
-            int clientTotalLocations = shop.getTotalLocationsByClientId(clients.get(i).id);
-            System.out.println((i+1)+" - COD: "+clients.get(i).id+" - "+clients.get(i).name+" - Nº de locações: "+clientTotalLocations);
+        for(int i = 0; i < top10Publications.size();i++){
+            int TotalLocations = Database.getTotalLoanByPublicationId(top10Publications.get(i).id);
+            System.out.println((i+1)+" - CODIGO: "+top10Publications.get(i).id+" - "+top10Publications.get(i).title+" - "+top10Publications.get(i).author+" - Nº de empréstimos: "+TotalLocations);
         }
 
         returnToMenu();
