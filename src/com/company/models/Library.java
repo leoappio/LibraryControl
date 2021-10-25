@@ -23,6 +23,7 @@ public class Library {
         this.publications = Database.getAllPublication();
         return publications;
     }
+
     public User getUserById(int id){
         for (User user : this.users) {
             if (user.id == id) {
