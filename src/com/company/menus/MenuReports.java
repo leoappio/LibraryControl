@@ -14,21 +14,25 @@ public class MenuReports {
     public static Scanner scanner = new Scanner(System.in);
     public static Library library = new Library();
     public static void menuOptions() throws SQLException {
+        label:
         while(true){
             System.out.print("Digite o número da sua escolha: ");
             String choice = scanner.nextLine();
-            if(choice.equals("1")){
-                userCard();
-            }else if(choice.equals("2")){
-                collectionBalance();
-            }else if(choice.equals("3")){
-                movementsBalance();
-            }else if(choice.equals("0")){
-                Screen.MainMenu();
-                break;
+            switch (choice) {
+                case "1":
+                    userCard();
+                    break;
+                case "2":
+                    collectionBalance();
+                    break;
+                case "3":
+                    movementsBalance();
+                    break;
+                case "0":
+                    Screen.MainMenu();
+                    break label;
             }
         }
-
     }
 
     public static void userCard() throws SQLException {
@@ -46,9 +50,8 @@ public class MenuReports {
             System.out.println(publication.id + "- " + publication.title + "- "+publication.author);
             System.out.println("-------------------------------------");
         }
-
-
     }
+
     public static void collectionBalance() throws SQLException {
         System.out.println("XYZ COMERCIO DE PRODUTOS LTDA.");
         System.out.println("SISTEMA DE CONTROLE DE BIBLIOTECA");
